@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {createContext} from "react";
+import './main.global.css';
+import {hot} from "react-hot-loader/root";
+import UserStore from "./store/UserStore";
+import RootApp from "./RootApp";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+interface IContext{
+    users: UserStore
+}
+export const Context = createContext<IContext| null>(null)
+
+
+function AppComponent() {
+
+    return(
+        <Context.Provider value={{users: new UserStore()}}>
+            <RootApp/>
+        </Context.Provider>
+    );
 }
 
-export default App;
+export const App = hot(AppComponent);
+
+
